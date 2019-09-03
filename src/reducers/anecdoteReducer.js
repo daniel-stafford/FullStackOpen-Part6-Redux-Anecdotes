@@ -27,6 +27,8 @@ const reducer = (state = initialState, action) => {
       let target = state.find(p => p.id === action.id)
       target = { ...target, votes: target.votes + 1 }
       return state.map(p => (p.id !== action.id ? p : target))
+    case 'ADD':
+      return state.concat(asObject(action.text))
     default:
       return state
   }

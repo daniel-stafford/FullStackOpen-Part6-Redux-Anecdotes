@@ -9,6 +9,12 @@ const App = props => {
     props.store.dispatch({ type: 'VOTE', id })
   }
 
+  const addAnecdote = e => {
+    e.preventDefault()
+    const text = e.target.userAnecdote.value
+    props.store.dispatch({ type: 'ADD', text })
+  }
+
   return (
     <div>
       <h2>Anecdotes</h2>
@@ -22,11 +28,11 @@ const App = props => {
         </div>
       ))}
       <h2>create new</h2>
-      <form>
+      <form onSubmit={addAnecdote}>
         <div>
-          <input />
+          <input name='userAnecdote' />
         </div>
-        <button>create</button>
+        <button type='submit'>create</button>
       </form>
     </div>
   )
