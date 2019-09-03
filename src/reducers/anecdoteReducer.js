@@ -9,7 +9,7 @@ const anecdotesAtStart = [
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 
-const asObject = (anecdote) => {
+const asObject = anecdote => {
   return {
     content: anecdote,
     id: getId(),
@@ -22,8 +22,14 @@ const initialState = anecdotesAtStart.map(asObject)
 const reducer = (state = initialState, action) => {
   console.log('state now: ', state)
   console.log('action', action)
-
-  return state
+  switch (action.type) {
+    case 'VOTE':
+      let target = state.find(p => p.id === action.id)
+      target = { ...target, votes: target.votes + 1 }
+      return state.map(p => (p.id !== action.id ? p : target))
+    default:
+      return state
+  }
 }
 
 export default reducer
