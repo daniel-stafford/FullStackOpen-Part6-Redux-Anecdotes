@@ -2,7 +2,7 @@ import React from 'react'
 import { addVote } from '../reducers/anecdoteReducer'
 
 const AnecdoteList = props => {
-  const anecdotes = props.store.getState()
+  const anecdotes = props.store.getState().anecdotes
 
   const handleVote = id => {
     console.log('vote', id)
