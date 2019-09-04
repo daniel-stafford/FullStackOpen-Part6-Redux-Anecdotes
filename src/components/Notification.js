@@ -3,7 +3,7 @@ import React from 'react'
 const Notification = props => {
   console.log(props.store.getState())
   const style = {
-    border: 'solid',
+    // border: 'solid',
     padding: 10,
     borderWidth: 1
   }
