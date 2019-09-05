@@ -8,6 +8,7 @@ const anecdotesAtStart = [
 ]
 
 export const addVote = id => {
+  console.log('addvote function firing', id)
   return {
     type: 'ADD_VOTE',
     data: { id }
@@ -30,9 +31,8 @@ const asObject = anecdote => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-const ancedoteReducer = (state = initialState, action) => {
-  console.log('state now: ', state)
-  console.log('action', action)
+const anecdoteReducer = (state = initialState, action) => {
+  console.log('anecdote reducer is firing', state, action)
   switch (action.type) {
     case 'ADD_VOTE':
       let target = state.find(p => p.id === action.data.id)
@@ -47,4 +47,4 @@ const ancedoteReducer = (state = initialState, action) => {
   }
 }
 
-export default ancedoteReducer
+export default anecdoteReducer
