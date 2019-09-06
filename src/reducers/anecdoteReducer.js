@@ -1,18 +1,26 @@
 import anecdotesService from '../services/anecdotes'
 
-export const addVote = id => {
-  return {
-    type: 'ADD_VOTE',
-    data: { id }
+export const addVote = anecdote => {
+  console.log('paramter anecdote', anecdote)
+  const updateObject = { ...anecdote, votes: anecdote.votes + 1 }
+  console.log('const updateObject', updateObject)
+  return async dispatch => {
+    const processedAnecdote = await anecdotesService.update(
+      anecdote.id,
+      updateObject
+    )
+    console.log('processedAnecdote', processedAnecdote)
+    dispatch({
+      type: 'ADD_VOTE',
+      data: processedAnecdote
+    })
   }
 }
 
 export const addAnecdote = content => {
-  console.log('const content', content)
   const anecdoteObject = asObject(content)
   return async dispatch => {
     const processedAnecdote = await anecdotesService.createNew(anecdoteObject)
-    console.log('const newAnecdote', processedAnecdote)
     dispatch({
       type: 'ADD_ANECDOTE',
       data: processedAnecdote
@@ -43,6 +51,7 @@ const asObject = anecdote => {
 const anecdoteReducer = (state = [], action) => {
   switch (action.type) {
     case 'ADD_VOTE':
+      console.log('action data', action.data)
       let target = state.find(p => p.id === action.data.id)
       target = { ...target, votes: target.votes + 1 }
       return state

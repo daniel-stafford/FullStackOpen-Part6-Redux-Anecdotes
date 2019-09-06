@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 
 const AnecdoteList = props => {
   const handleVote = anecdote => {
-    props.addVote(anecdote.id)
+    props.addVote(anecdote)
     props.setNotification(`You voted for: ${anecdote.content}`)
     setTimeout(() => props.removeNotification(), 5000)
   }
