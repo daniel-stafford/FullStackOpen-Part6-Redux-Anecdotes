@@ -7,14 +7,15 @@ export const addVote = id => {
   }
 }
 
-export const addAnecdote = text => {
-  console.log('const content', text)
+export const addAnecdote = content => {
+  console.log('const content', content)
+  const anecdoteObject = asObject(content)
   return async dispatch => {
-    const newAnecdote = await anecdotesService.createNew(text)
-    console.log('const newAnecdote', newAnecdote)
+    const processedAnecdote = await anecdotesService.createNew(anecdoteObject)
+    console.log('const newAnecdote', processedAnecdote)
     dispatch({
       type: 'ADD_ANECDOTE',
-      data: { text }
+      data: processedAnecdote
     })
   }
 }
@@ -48,7 +49,7 @@ const anecdoteReducer = (state = [], action) => {
         .map(p => (p.id !== action.data.id ? p : target))
         .sort((a, b) => b.votes - a.votes)
     case 'ADD_ANECDOTE':
-      return state.concat(asObject(action.data.text))
+      return state.concat(action.data)
     case 'INIT_ANECDOTES':
       return action.data
     default:
