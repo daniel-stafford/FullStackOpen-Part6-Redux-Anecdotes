@@ -8,7 +8,15 @@ export const addVote = id => {
 }
 
 export const addAnecdote = text => {
-  return { type: 'ADD_ANECDOTE', data: { text } }
+  console.log('const content', text)
+  return async dispatch => {
+    const newAnecdote = await anecdotesService.createNew(text)
+    console.log('const newAnecdote', newAnecdote)
+    dispatch({
+      type: 'ADD_ANECDOTE',
+      data: { text }
+    })
+  }
 }
 
 export const initializeAnecdotes = () => {
